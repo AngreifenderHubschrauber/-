@@ -1,0 +1,14 @@
+# Node.js
+node_modules/
+build/
+
+# Python
+venv/
+__pycache__/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
