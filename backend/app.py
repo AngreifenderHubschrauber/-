@@ -1,5 +1,5 @@
 from fastapi import FastAPI, File, UploadFile, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from typing import List
 import os
@@ -55,3 +55,13 @@ def download_image(filename: str):
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="File not found")
     return FileResponse(file_path)
+
+
+@app.post("/process-image/")
+async def process_image(files: list[UploadFile] = File(...)):
+    predictions = []
+    for file in files:
+        # Обработка каждого файла
+        prediction = some_model_prediction_function(file)
+        predictions.append(prediction)
+    return JSONResponse(content={"predictions": predictions})
